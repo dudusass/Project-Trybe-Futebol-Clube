@@ -7,7 +7,7 @@ class UserService {
   public login = async ({ email, password }: Ilogin) => {
     const findUser = await Users.findOne({ where: { email } });
 
-    if (!findUser) return { message: 'Incorrect email or password', statusCode: 401 };
+    if (!findUser) return { message: 'All fields must be filled', statusCode: 400 };
 
     const checkCrypt = await bcryptjs.compare(password, findUser.password);
     if (!checkCrypt) return { message: 'Incorrect email or password', statusCode: 401 };
