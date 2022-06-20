@@ -15,4 +15,11 @@ userRouter.post(
   },
 );
 
+userRouter.get(
+  "/login/validate",
+  async (req: Request, res: Response) => {
+    await userController.validate(req, res);
+  },
+)
+
 export default userRouter;
