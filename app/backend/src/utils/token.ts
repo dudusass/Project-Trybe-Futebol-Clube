@@ -9,13 +9,13 @@ class Token {
     return token;
   }
 
-  static decode(token: string) {
+/*   static decode(token: string) {
     const SECRET = fs.readFileSync('./jwt.evaluation.key').toString();
     const tokenn = jwt.verify(token, SECRET);
 
     console.log(tokenn);
     return tokenn;
-  }
+  } */
 }
 
 export default Token;
