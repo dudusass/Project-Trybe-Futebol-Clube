@@ -31,5 +31,3 @@ function validatePassword(req: Request, res: Response, next: NextFunction) {
 }
 
 export { validateEmail, validatePassword };
-
-

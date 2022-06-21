@@ -6,6 +6,13 @@ const userController = new UserController();
 
 const userRouter = Router();
 
+/* userRouter.get(
+  "/login/validate",
+  async (req: Request, res: Response) => {
+    await userController.validate(req, res);
+  },
+) */
+
 userRouter.post(
   '/',
   validateEmail,
@@ -14,12 +21,5 @@ userRouter.post(
     await userController.login(req, res);
   },
 );
-
-userRouter.get(
-  "/login/validate",
-  async (req: Request, res: Response) => {
-    await userController.validate(req, res);
-  },
-)
 
 export default userRouter;
