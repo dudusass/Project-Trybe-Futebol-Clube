@@ -1,4 +1,4 @@
-/* import { Router, Request, Response } from 'express';
+import { Router, Request, Response } from 'express';
 import TeamsController from '../controllers/teamController';
 
 const teamsController = new TeamsController();
@@ -12,4 +12,11 @@ teamRouter.get(
   },
 );
 
-export default teamRouter; */
+teamRouter.get(
+  '/teams/:id',
+  async (req: Request, res: Response) => {
+    await teamsController.getTeamsById(req, res);
+  },
+);
+
+export default teamRouter;

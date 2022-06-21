@@ -1,4 +1,4 @@
-/* import { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import TeamsServices from '../services/teamServices';
 
 class TeamsController {
@@ -9,13 +9,16 @@ class TeamsController {
   }
 
   async teamsName(req: Request, res: Response) {
-    const { teamName } = req.body;
+    const getTeam = await this.teamsService.findTeam();
 
-    const teamNames = await this.teamsService.findTeam({ teamName });
-    return res.status(200).json(teamNames);
-
+    return res.status(200).json(getTeam);
   }
+
+  getTeamsById = async (req:Request, res: Response) => {
+    const { id } = req.params;
+    const getById = await this.teamsService.findTeamById(id);
+    return res.status(200).json(getById);
+  };
 }
 
 export default TeamsController;
- */

@@ -11,7 +11,7 @@ class UserService {
 
     const checkCrypt = await bcryptjs.compare(password, findUser.password);
 
-    if (!checkCrypt) return { message: 'Incorrect email or password', statusCode: 401 };
+    if (!checkCrypt) return { message: 'All fields must be filled', statusCode: 401 };
 
     const { id, username, role } = findUser;
 

@@ -6,6 +6,12 @@ class TeamsServices {
 
     return team;
   };
+
+  public findTeamById = async (id: string) => {
+    const findTeam = await teams.findByPk(id);
+
+    return findTeam;
+  };
 }
 
 export default TeamsServices;
