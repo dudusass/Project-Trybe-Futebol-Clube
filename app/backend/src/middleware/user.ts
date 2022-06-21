@@ -10,7 +10,7 @@ function validateEmail(req: Request, res: Response, next: NextFunction) {
   }
 
   if (!email) {
-    return res.status(401).json({ error: 'All fields must be filled' });
+    return res.status(401).json({ error: 'Incorrect email or password' });
   }
 
   next();
@@ -24,7 +24,7 @@ function validatePassword(req: Request, res: Response, next: NextFunction) {
   }
 
   if (password.length <= 6) {
-    return res.status(401).json({ error: 'All fields must be filled' });
+    return res.status(401).json({ error: 'Incorrect email or password' });
   }
 
   next();
