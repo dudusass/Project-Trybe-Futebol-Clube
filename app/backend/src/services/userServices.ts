@@ -28,11 +28,11 @@ class UserService {
     };
   };
 
-/*   public userRole = async (token: string) => {
+  public userRole = async (token: string) => {
     const validate = Token.decode(token);
     if (typeof validate === 'string') return { message: 'Invalid token', statusCode: 400 };
     return validate.role;
-  }; */
+  };
 }
 
 export default UserService;
