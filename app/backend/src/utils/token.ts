@@ -13,7 +13,7 @@ class Token {
     const SECRET = fs.readFileSync('./jwt.evaluation.key').toString();
     const tokenn = jwt.verify(token, SECRET);
 
-    console.log(tokenn)
+    console.log(tokenn);
     return tokenn;
   }
 }

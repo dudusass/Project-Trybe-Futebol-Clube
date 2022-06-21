@@ -19,10 +19,10 @@ class UserController {
     return res.status(200).json(validLogin);
   }
 
-   async validate(req: Request, res: Response) {
+  async validate(req: Request, res: Response) {
     const { authorization } = req.headers;
 
-    if (!authorization) throw new Error;
+    if (!authorization) throw new Error();
 
     const validLogin = await this.userService.userRole(authorization);
 
