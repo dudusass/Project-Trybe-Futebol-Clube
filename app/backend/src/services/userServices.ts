@@ -7,9 +7,9 @@ class UserService {
   public login = async ({ email, password }: Ilogin) => {
     const findUser = await Users.findOne({ where: { email } });
 
-    if (!findUser) return { message: 'All fields must be filled', statusCode: 400 };
+    if (!findUser) return { message: 'Incorrect email or password', statusCode: 400 };
 
-    const checkCrypt = await bcryptjs.compare(password, findUser.password);
+    const checkCrypt = await bcryptjs.compare(password, findUser?.password);
 
     if (!checkCrypt) return { message: 'Incorrect email or password', statusCode: 401 };
 
@@ -28,11 +28,12 @@ class UserService {
     };
   };
 
-/*   public userRole = async (token: string) => {
-    const validate = Token.decode(token);
-    if (typeof validate === 'string') return { message: 'Invalid token', statusCode: 400 };
-    return validate.role;
-  }; */
+  public userRole = async (email: string) => {
+    const tokenn = await Token.decode(email);
+    const findUser = await Users.findOne({ where: { email: tokenn.email } });
+
+    return findUser?.role;
+  };
 }
 
 export default UserService;

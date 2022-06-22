@@ -19,15 +19,15 @@ class UserController {
     return res.status(200).json(validLogin);
   }
 
-/*   async validate(req: Request, res: Response) {
+  async validate(req: Request, res: Response) {
     const { authorization } = req.headers;
 
-    if (!authorization) throw new Error();
+    if (!authorization) return res.status(401).json({ message: 'Token not found' });
 
-    const validLogin = await this.userService.userRole(authorization);
+    const validToken = await this.userService.userRole(authorization);
 
-    return res.status(200).json(validLogin);
-  } */
+    return res.status(200).json(validToken);
+  }
 }
 
 export default UserController;
