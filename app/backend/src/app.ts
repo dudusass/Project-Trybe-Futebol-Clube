@@ -29,7 +29,7 @@ class App {
 
     this.app.use('/teams', teamRouter);
     this.app.get('/teams/:id', teamRouter);
-    
+
     this.app.get('/matches', matchRouter);
   }
 
