@@ -18,10 +18,10 @@ function validateEmail(req: Request, res: Response, next: NextFunction) {
 }
 
 function validatePassword(req: Request, res: Response, next: NextFunction) {
-  const { password }: Users = req.body;
+  const { password } = req.body;
 
   if (!password) {
-    return res.status(400).json({ error: 'All fields must be filleeeeed' });
+    return res.status(400).json({ error: 'All fields must be filled' });
   }
   if (password.length <= 6) {
     return res.status(401).json({ error: 'Incorrect email or password' });
