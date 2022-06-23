@@ -17,14 +17,14 @@ matchRouter.post(
   async (req: Request, res: Response) => {
     await matchController.inProgressMatch(req, res);
   },
-)
+);
 
 matchRouter.patch(
   '/matches/:id/finish',
   async (req: Request, res: Response) => {
     await matchController.finishedMatch(req, res);
-  }
+  },
 
-)
+);
 
 export default matchRouter;

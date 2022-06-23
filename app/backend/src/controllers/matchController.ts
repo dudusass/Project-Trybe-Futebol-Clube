@@ -23,7 +23,7 @@ class MatchController {
       return res.status(200).json(inProgressMatch);
     }
   }
-  
+
   async finishedMatch(req: Request, res: Response) {
     const { inProgress } = req.query;
 
