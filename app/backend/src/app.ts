@@ -31,6 +31,7 @@ class App {
     this.app.get('/teams/:id', teamRouter);
 
     this.app.get('/matches', matchRouter);
+    this.app.get('/matches/:id/finish', matchRouter);
   }
 
   // ...
