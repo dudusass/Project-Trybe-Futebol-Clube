@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import UserController from '../controllers/userController';
-import { validateEmail, validatePassword } from '../middleware/user';
+import validateEmailandPassword from '../middleware/user';
 
 const userController = new UserController();
 
@@ -8,8 +8,7 @@ const userRouter = Router();
 
 userRouter.post(
   '/',
-  validateEmail,
-  validatePassword,
+  validateEmailandPassword,
   async (req: Request, res: Response) => {
     await userController.login(req, res);
   },

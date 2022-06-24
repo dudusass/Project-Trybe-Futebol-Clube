@@ -4,7 +4,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import User from '../database/models/Users';
+import Users from '../database/models/Users';
 
 import { Response } from 'superagent';
 
@@ -17,18 +17,18 @@ describe('Testa a rota login', () => {
 
    before(async () => {
      sinon
-       .stub(User, "findOne")
+       .stub(Users, "findOne")
        .resolves({
           id: 1,
           username: 'Admin',
           role: 'admin',
           email:'admin@admin.com',
           password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
-       } as User);
+       } as Users);
    });
 
    after(()=>{
-     (User.findOne as sinon.SinonStub).restore();
+     (Users.findOne as sinon.SinonStub).restore();
    })
 
    it('Verifica que é possível fazer login com sucesso', async () => {
@@ -52,18 +52,18 @@ describe('Testa que não é possível acesso com email inválido',() => {
 
    before(async () => {
      sinon
-       .stub(User, "findOne")
+       .stub(Users, "findOne")
        .resolves({
           id: 1,
           username: 'Admin',
           role: 'admin',
           email:'admin@admin.com',
           password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
-       } as User);
+       } as Users);
    });
 
    after(()=>{
-     (User.findOne as sinon.SinonStub).restore();
+     (Users.findOne as sinon.SinonStub).restore();
    })
 
    it('Verifica que não é possível fazer login com email inválido', async () => {
@@ -84,18 +84,18 @@ describe('Testa que não é possível acesso com senha inválida',() => {
 
    before(async () => {
      sinon
-       .stub(User, "findOne")
+       .stub(Users, "findOne")
        .resolves({
           id: 1,
           username: 'Admin',
           role: 'admin',
           email:'admin@admin.com',
           password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
-       } as User);
+       } as Users);
    });
 
    after(()=>{
-     (User.findOne as sinon.SinonStub).restore();
+     (Users.findOne as sinon.SinonStub).restore();
    })
 
    it('Verifica que não é possível fazer login com senha inválida', async () => {
@@ -116,18 +116,18 @@ describe('Testa que não é possível acesso sem email',() => {
 
    before(async () => {
      sinon
-       .stub(User, "findOne")
+       .stub(Users, "findOne")
        .resolves({
           id: 1,
           username: 'Admin',
           role: 'admin',
           email:'admin@admin.com',
           password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
-       } as User);
+       } as Users);
    });
 
    after(()=>{
-     (User.findOne as sinon.SinonStub).restore();
+     (Users.findOne as sinon.SinonStub).restore();
    })
 
    it('Verifica que não é possível fazer login sem email', async () => {
@@ -147,18 +147,18 @@ describe('Testa que não é possível acesso sem senha',() => {
 
    before(async () => {
      sinon
-       .stub(User, "findOne")
+       .stub(Users, "findOne")
        .resolves({
           id: 1,
           username: 'Admin',
           role: 'admin',
           email:'admin@admin.com',
           password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
-       } as User);
+       } as Users);
    });
 
    after(()=>{
-     (User.findOne as sinon.SinonStub).restore();
+     (Users.findOne as sinon.SinonStub).restore();
    })
 
    it('Verifica que não é possível fazer login sem senha', async () => {
