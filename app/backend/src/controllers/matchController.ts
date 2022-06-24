@@ -21,6 +21,8 @@ class MatchController {
 
     const newMatch = await this.matchService.create(data);
 
+    console.log(newMatch);
+
     return res.status(201).json(newMatch);
   }
 
