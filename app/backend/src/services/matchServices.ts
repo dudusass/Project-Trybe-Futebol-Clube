@@ -11,6 +11,33 @@ class MatchServices {
 
     return listMatches;
   };
+
+  public create = async (match: any) => {
+    const { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress } = match;
+
+    const createdMatch = await matches.create({
+      homeTeam,
+      homeTeamGoals,
+      awayTeam,
+      awayTeamGoals,
+      inProgress,
+    });
+
+    const tHome = await teams.findByPk(homeTeam);
+
+    const tAway = await teams.findByPk(awayTeam);
+
+    if (!tHome || !tAway) return { message: 'There is no team with such id!', statusCode: 404 };
+
+    return createdMatch;
+  };
+
+  public finished = async (id: number) => {
+    await matches.update({ inProgress: false }, {
+      where: { id } });
+
+    return { message: 'Finished' };
+  };
 }
 
 export default MatchServices;

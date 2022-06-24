@@ -24,14 +24,21 @@ class MatchController {
     }
   }
 
-  async finishedMatch(req: Request, res: Response) {
-    const { inProgress } = req.query;
+  async createdMatch(req: Request, res: Response) {
+    const { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress } = req.body;
+    const createdMatch = await this.matchService.create(
+      { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress },
+    );
 
-    if (inProgress === 'false') {
-      const inProgressMatch = await this.matchService.getMatch();
+    return res.status(201).json(createdMatch);
+  }
 
-      return res.status(200).json(inProgressMatch);
-    }
+  async finishmatch(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const matchFinished = await this.matchService.finished(Number(id));
+
+    return res.status(200).json(matchFinished);
   }
 }
 
