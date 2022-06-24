@@ -10,6 +10,7 @@ import { readFileSync } from 'fs';
 
 import Users from '../database/models/Users';
 import Matches from '../database/models/Matches';
+import token from '../utils/token';
 
 chai.use(chaiHttp);
 
@@ -109,7 +110,35 @@ describe('Testa a rota matches', () => {
     expect(chaiHttpResponse.status).to.be.equal(401);
     expect(chaiHttpResponse.body).to.have.property('message');
   });
-});
+
+  it('Não é possível criar partidas com id inexistente', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/matches')
+      .set({ authorization: token })
+      .send({
+        homeTeam: 16,
+        homeTeamGoals: 2,
+        awayTeam: 8,
+        awayTeamGoals: 2,
+        inProgress: true,
+      })
+    expect(chaiHttpResponse.status).to.be.equal(404);
+    expect(chaiHttpResponse.body).to.have.property('message');
+  })
+
+  it('Verifica que é possível listar as partidas em andamento', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .get('/matches?inProgress=true')
+      .send()
+
+    expect(chaiHttpResponse.status).to.be.equal(200);
+
+    expect(chaiHttpResponse.body[0]).to.have.property('id')
+})
+
+})
 
 function before(arg0: () => Promise<void>) {
   throw new Error('Function not implemented.');

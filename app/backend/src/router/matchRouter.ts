@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import MatchController from '../controllers/matchController';
 import auth from '../middleware/auth';
 import { matchMiddleware, validateTeams } from '../middleware/matches';
@@ -22,7 +22,7 @@ matchRouter.post(
 
 matchRouter.patch(
   '/:id/finish',
-matchController.finishMatch,
+  matchController.finishMatch,
 );
 
 export default matchRouter;
