@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import MatchController from '../controllers/matchController';
 import auth from '../middleware/auth';
 import { matchMiddleware, validateTeams } from '../middleware/matches';
@@ -8,8 +8,10 @@ const matchController = new MatchController();
 const matchRouter = Router();
 
 matchRouter.get(
-  '/matches',
-  matchController.getMatches,
+  '/',
+  async (req: Request, res: Response) => {
+    await matchController.getMatches(req, res);
+  },
 );
 
 matchRouter.post(
@@ -17,7 +19,14 @@ matchRouter.post(
   auth,
   matchMiddleware,
   validateTeams,
-  matchController.createdMatch,
+  async (req: Request, res: Response) => {
+    await matchController.createdMatch(req, res);
+  },
+);
+
+matchRouter.patch(
+  '/:id',
+  matchController.updateMatch,
 );
 
 matchRouter.patch(

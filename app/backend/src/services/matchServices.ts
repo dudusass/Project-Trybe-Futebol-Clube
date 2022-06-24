@@ -2,15 +2,18 @@ import matches from '../database/models/Matches';
 import teams from '../database/models/Teams';
 
 class MatchServices {
-  public getMatch = async () => {
-    const listMatches = await matches.findAll({ include: [
-      { model: teams, as: 'teamHome', attributes: { exclude: ['id'] } },
-      { model: teams, as: 'teamAway', attributes: { exclude: ['id'] } },
-    ],
-    attributes: { exclude: ['homeTeam', 'awayTeam'] } });
-
-    return listMatches;
-  };
+  getMatch = async (inProgress: string | undefined) : Promise<matches[]> => (
+    inProgress ? await matches.findAll({
+      where: { inProgress: inProgress === 'true' },
+      include: [
+        { model: teams, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: teams, as: 'teamAway', attributes: { exclude: ['id'] } }],
+    }) as matches[] : await matches.findAll({
+      include: [{
+        model: teams, as: 'teamHome', attributes: { exclude: ['id'] } },
+      { model: teams, as: 'teamAway', attributes: { exclude: ['id'] } }],
+    }) as matches[]
+  );
 
   create = async (match: matches) => {
     await matches.create({ ...match, inProgress: true });

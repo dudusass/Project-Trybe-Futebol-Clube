@@ -7,13 +7,13 @@ function matchMiddleware(req: Request, res: Response, next: NextFunction) {
   if (homeTeam === awayTeam) {
     return res.status(401).json(
       { message: 'It is not possible to create a match with two equal teams' },
-    );
+    ).end();
   }
 
   next();
 }
 
-async function validateTeams(req: Request, res: Response) {
+async function validateTeams(req: Request, res: Response, next: NextFunction) {
   const { homeTeam, awayTeam } = req.body;
 
   const tHome = await teams.findByPk(homeTeam);
@@ -23,6 +23,8 @@ async function validateTeams(req: Request, res: Response) {
     return res.status(404)
       .json({ message: 'There is no team with such id!' }).end();
   }
+
+  return next();
 }
 
 export { matchMiddleware, validateTeams };

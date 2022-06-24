@@ -9,23 +9,15 @@ class MatchController {
   }
 
   async getMatches(req: Request, res: Response) {
-    const listmatches = await this.matchService.getMatch();
+    const inProgress = req.query.inProgress as string;
+
+    const listmatches = await this.matchService.getMatch(inProgress);
 
     return res.status(200).json(listmatches);
   }
 
-  async inProgressMatch(req: Request, res: Response) {
-    const { inProgress } = req.query;
-
-    if (inProgress === 'true') {
-      const inProgressMatch = await this.matchService.getMatch();
-
-      return res.status(200).json(inProgressMatch);
-    }
-  }
-
   async createdMatch(req: Request, res: Response) {
-    const { data } = req.body;
+    const data = req.body;
 
     const newMatch = await this.matchService.create(data);
 
