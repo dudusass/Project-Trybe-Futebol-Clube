@@ -13,15 +13,16 @@ function matchMiddleware(req: Request, res: Response, next: NextFunction) {
   next();
 }
 
-async function validateTeams(req: Request, res: Response, next: NextFunction) {
+async function validateTeams(req: Request, res: Response) {
   const { homeTeam, awayTeam } = req.body;
 
   const tHome = await teams.findByPk(homeTeam);
   const tAway = await teams.findByPk(awayTeam);
 
-    if (!tHome || !tAway) return res.status(404)
-    .json({ message : 'There is no team with such id!' }).end();
-  };
-
+  if (!tHome || !tAway) {
+    return res.status(404)
+      .json({ message: 'There is no team with such id!' }).end();
+  }
+}
 
 export { matchMiddleware, validateTeams };

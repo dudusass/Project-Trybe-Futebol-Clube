@@ -13,7 +13,7 @@ class MatchServices {
   };
 
   create = async (match: matches) => {
-    await matches.create({ ...match, inProgress: true })
+    await matches.create({ ...match, inProgress: true });
   };
 
   finished = async (id: string) => {

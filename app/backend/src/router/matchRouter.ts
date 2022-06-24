@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import auth from '../middleware/auth';
 import MatchController from '../controllers/matchController';
-import { matchMiddleware, validateTeams} from '../middleware/matches';
+import { matchMiddleware, validateTeams } from '../middleware/matches';
 
 const matchController = new MatchController();
 
@@ -23,7 +23,6 @@ matchRouter.post(
     await matchController.createdMatch(req, res);
   },
 );
-
 
 matchRouter.patch(
   '/:id/finish',
