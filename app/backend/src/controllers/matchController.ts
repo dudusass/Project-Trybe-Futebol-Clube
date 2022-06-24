@@ -25,20 +25,27 @@ class MatchController {
   }
 
   async createdMatch(req: Request, res: Response) {
-    const { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress } = req.body;
-    const createdMatch = await this.matchService.create(
-      { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress },
-    );
+    const { data } = req.body;
 
-    return res.status(201).json(createdMatch);
+    const newMatch = await this.matchService.create(data);
+      
+    return res.status(201).json(newMatch);
   }
 
-  async finishmatch(req: Request, res: Response) {
+  async finishMatch(req: Request, res: Response) {
     const { id } = req.params;
 
-    const matchFinished = await this.matchService.finished(Number(id));
+    await this.matchService.finished(id);
 
-    return res.status(200).json(matchFinished);
+    return res.status(200).json({ message: 'Finished' });
+  }
+
+  updateMatch = async (req: Request, res: Response) => {
+      const { id } = req.params;
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+
+      const updated = await this.matchService.update(id, homeTeamGoals, awayTeamGoals);
+      return res.status(200).json(updated);  
   }
 }
 

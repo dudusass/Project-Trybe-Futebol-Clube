@@ -30,8 +30,7 @@ class App {
     this.app.use('/teams', teamRouter);
     this.app.get('/teams/:id', teamRouter);
 
-    this.app.get('/matches', matchRouter);
-    this.app.get('/matches/:id/finish', matchRouter);
+    this.app.use('/matches', matchRouter);
   }
 
   // ...

@@ -1,21 +1,11 @@
 import { Router, Request, Response } from 'express';
 import auth from '../middleware/auth';
 import MatchController from '../controllers/matchController';
-import matchMiddleware from '../middleware/matches';
+import { matchMiddleware, validateTeams} from '../middleware/matches';
 
 const matchController = new MatchController();
 
 const matchRouter = Router();
-
-matchRouter.post(
-  '/matches',
-  auth,
-  matchMiddleware,
-  matchController.createdMatch,
-  async (req: Request, res: Response) => {
-    await matchController.inProgressMatch(req, res);
-  },
-);
 
 matchRouter.get(
   '/matches',
@@ -24,10 +14,21 @@ matchRouter.get(
   },
 );
 
-matchRouter.patch(
-  '/matches/:id/finish',
+matchRouter.post(
+  '/',
+  auth,
+  matchMiddleware,
+  validateTeams,
   async (req: Request, res: Response) => {
-    await matchController.finishmatch(req, res);
+    await matchController.createdMatch(req, res);
+  },
+);
+
+
+matchRouter.patch(
+  '/:id/finish',
+  async (req: Request, res: Response) => {
+    await matchController.finishMatch(req, res);
   },
 
 );
