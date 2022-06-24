@@ -15,9 +15,9 @@ class MatchServices {
     }) as matches[]
   );
 
-  create = async (match: matches) => {
-    await matches.create({ ...match, inProgress: true });
-  };
+  create = async (data: matches) => (
+    matches.create({ ...data, inProgress: true })
+  );
 
   finished = async (id: string) => {
     await matches.update({ inProgress: false }, { where: { id } });

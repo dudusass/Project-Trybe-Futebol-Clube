@@ -17,9 +17,11 @@ class MatchController {
   }
 
   async createdMatch(req: Request, res: Response) {
-    const data = req.body;
+    const data = req.body
 
     const newMatch = await this.matchService.create(data);
+
+    console.log(newMatch);
 
     return res.status(201).json(newMatch);
   }
