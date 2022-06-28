@@ -17,8 +17,7 @@ class MatchServices {
 
   create = async (data: matches) => {
     const createdMatch = await matches.create({ ...data, inProgress: true });
-
-    console.log(createdMatch);
+    
     return createdMatch;
   };
 

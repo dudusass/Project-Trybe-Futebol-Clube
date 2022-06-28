@@ -2,6 +2,7 @@ import * as express from 'express';
 import userRouter from './router/userRouter';
 import teamRouter from './router/teamRouter';
 import matchRouter from './router/matchRouter';
+import * as cors from 'cors';
 
 class App {
   public app: express.Express;
@@ -23,6 +24,7 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(express.json());
+    this.app.use(cors());
 
     this.app.use('/login', userRouter);
     this.app.use('/login/validate', userRouter);
