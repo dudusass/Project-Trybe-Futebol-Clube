@@ -136,8 +136,137 @@ describe('Testa a rota matches', () => {
     expect(chaiHttpResponse.status).to.be.equal(200);
 
     expect(chaiHttpResponse.body[0]).to.have.property('id')
+});
+
+it('Verifica que é possível listar as partidas finalizadas', async () => {
+  chaiHttpResponse = await chai
+    .request(app)
+    .get('/matches?inProgress=false')
+    .send()
+
+  expect(chaiHttpResponse.status).to.be.equal(200);
+  expect(chaiHttpResponse.body).to.be.an('array');
+  expect(chaiHttpResponse.body[0]).to.have.property('id')
+  expect(chaiHttpResponse.body[0]).to.have.property('homeTeam')
+  expect(chaiHttpResponse.body[0]).to.have.property('homeTeamGoals')
+  expect(chaiHttpResponse.body[0]).to.have.property('awayTeam')
+  expect(chaiHttpResponse.body[0]).to.have.property('awayTeamGoals')
+  expect(chaiHttpResponse.body[0].inProgress).to.be.equal(false)
+  expect(chaiHttpResponse.body[0]).to.have.property('inProgress');
+});
+
+  it ('Testa que não é criar partida com dois times iguas', async () => {
+    chaiHttpResponse = await chai.request(app)
+    .post('/matches')
+      .set({ authorization: token })
+      .send({
+        "homeTeam": 16,
+        "awayTeam": 16,
+        "homeTeamGoals": 2,
+        "awayTeamGoals": 2,
+      })
+
+    expect(chaiHttpResponse).to.have.status(401);
+    expect(chaiHttpResponse.body).to.have.property('message');
+    expect(chaiHttpResponse.body.message).to.be.equal('It is not possible to create a match with two equal teams');
+  })
+
+  it ('Testa que não é possivel encontrar um time sem ele existir', async () => {
+    chaiHttpResponse = await chai.request(app)
+    .post('/matches')
+      .set({ authorization: token })
+      .send({
+        "homeTeam": 99,
+        "awayTeam": 16,
+        "homeTeamGoals": 2,
+        "awayTeamGoals": 2,
+      })
+
+    expect(chaiHttpResponse).to.have.status(404);
+    expect(chaiHttpResponse.body).to.have.property('message');
+    expect(chaiHttpResponse.body.message).to.be.equal('There is no team with such id');
+  })
+
+  it('Verifica que é possível criar partidas com sucesso', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/matches')
+      .set({ authorization: token })
+      .send({
+        "homeTeam": 16,
+        "awayTeam": 8,
+        "homeTeamGoals": 2,
+        "awayTeamGoals": 2,
+      })
+    expect(chaiHttpResponse.status).to.be.equal(201);
+  })
 })
 
+describe('Testa o model Matches', () => {
+  /**
+   * Exemplo do uso de stubs com tipos
+   */
+
+  let chaiHttpResponse: Response;
+  let wrongToken = "1234567abcdef"
+  before(async () => {
+    sinon
+      .stub(Matches, "create")
+      .resolves(
+        Matches as unknown as Matches);
+  });
+
+  after(() => {
+    (Matches.create as sinon.SinonStub).restore();
+  })
+
+  it('Verifica que não é possível criar partidas com token inválido', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/matches')
+      .set({ authorization: wrongToken })
+      .send({
+        "homeTeam": 16,
+        "awayTeam": 8,
+        "homeTeamGoals": 2,
+        "awayTeamGoals": 2,
+      })
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body.message).to.be.equal('Invalid Token');
+  })
+})
+
+describe('Testa o model Matches', () => {
+  /**
+   * Exemplo do uso de stubs com tipos
+   */
+
+  let chaiHttpResponse: Response;
+  let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJpYXQiOjE2NTQ3NDI4MDl9.Lg-GuUJsb-TzC-DWEXu7d5tP9-tC04Mf3aIT0PeZ1WQ"
+  before(async () => {
+    sinon
+      .stub(Matches, "create")
+      .resolves(
+        Matches as unknown as Matches);
+  });
+
+  after(() => {
+    (Matches.create as sinon.SinonStub).restore();
+  })
+
+  it('Verifica que é possível criar partidas com sucesso', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/matches')
+      .set({ authorization: token })
+      .send({
+        "homeTeam": 16,
+        "awayTeam": 8,
+        "homeTeamGoals": 2,
+        "awayTeamGoals": 2,
+      })
+    expect(chaiHttpResponse.status).to.be.equal(201);
+  })
 })
 
 function before(arg0: () => Promise<void>) {
