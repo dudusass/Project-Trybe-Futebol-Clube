@@ -1,6 +1,6 @@
 import MatchServices from '../matchServices';
 import TeamServices from '../teamServices';
-import classification from './classification';
+import {getLeaderBoardHome, getLeaderBoardAway} from './classification';
 
 class LeaderboardService {
   private matchServices: MatchServices;
@@ -11,13 +11,24 @@ class LeaderboardService {
     this.teamServices = new TeamServices();
   }
 
-  getClassification = async () => {
+  getClassificationHome = async () => {
     const matches = await this.matchServices.getMatch('false');
     const teams = await this.teamServices.findTeam();
 
-    const classificationHome = classification({ teams, matches });
+    const classificationHome = getLeaderBoardHome({ teams, matches });
 
     return classificationHome;
+
+  };
+
+  getClassificationAway = async () => {
+    const matches = await this.matchServices.getMatch('false');
+    const teams = await this.teamServices.findTeam();
+
+    const classificationHome = getLeaderBoardAway({ teams, matches });
+
+    return classificationHome;
+
   };
 }
 

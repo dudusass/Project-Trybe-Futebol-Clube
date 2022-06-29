@@ -8,7 +8,14 @@ const leaderBoardRouter = Router();
 leaderBoardRouter.get(
   '/home',
   async (req: Request, res: Response) => {
-    await leaderBoardController.getClassification(req, res);
+    await leaderBoardController.getClassificationHome(req, res);
+  },
+);
+
+leaderBoardRouter.get(
+  '/away',
+  async (req: Request, res: Response) => {
+    await leaderBoardController.getClassificationAway(req, res);
   },
 );
 

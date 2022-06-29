@@ -15,7 +15,7 @@ const order = (data: IClassification[]) => data.sort((a, b) => {
   return 0;
 });
 
-export default function getLeaderBoard({ matches, teams }: IParamsLeaderBoard) {
+ function getLeaderBoardHome({ matches, teams }: IParamsLeaderBoard) {
   const data = teams.map((team) => {
     const matchsGoals: IMatchGoals[] = matches
       .filter((match) => Number(match.homeTeam) === team.id)
@@ -24,4 +24,17 @@ export default function getLeaderBoard({ matches, teams }: IParamsLeaderBoard) {
     return new DataLeaderBoard(team.teamName, matchsGoals);
   });
   return order(data);
-}
+ }
+
+  function getLeaderBoardAway({ matches, teams }: IParamsLeaderBoard) {
+    const data = teams.map((team) => {
+      const matchsGoals: IMatchGoals[] = matches
+      .filter((match) => Number(match.awayTeam) === team.id)
+      .map((match) => ({
+        goalsFavor: Number(match.awayTeamGoals), goalsOwn: Number(match.homeTeamGoals) }));
+      return new DataLeaderBoard(team.teamName, matchsGoals);
+    })
+    return order(data);
+  }
+
+export { getLeaderBoardHome, getLeaderBoardAway };
