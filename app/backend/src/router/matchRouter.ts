@@ -25,13 +25,20 @@ matchRouter.post(
 );
 
 matchRouter.patch(
-  '/:id',
-  matchController.updateMatch,
+  '/:id/finish',
+  matchController.finishMatch,
+  async (req: Request, res: Response) => {
+    await matchController.finishMatch(req, res);
+  },
 );
 
 matchRouter.patch(
-  '/:id/finish',
-  matchController.finishMatch,
+  '/:id',
+  async (req: Request, res: Response) => {
+    await matchController.updateMatch(req, res);
+  },
+  
 );
+
 
 export default matchRouter;

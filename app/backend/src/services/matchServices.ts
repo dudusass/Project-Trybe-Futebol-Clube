@@ -17,16 +17,20 @@ class MatchServices {
 
   create = async (data: matches) => {
     const createdMatch = await matches.create({ ...data, inProgress: true });
-    
+
     return createdMatch;
   };
 
   finished = async (id: string) => {
-    await matches.update({ inProgress: false }, { where: { id } });
+    const finishedMatch = await matches.update({ inProgress: false }, { where: { id } });
+    console.log(finishedMatch);
+    return finishedMatch;
   };
 
   update = async (id: string, homeTeamGoals: number, awayTeamGoals: number) => {
-    await matches.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    const updatedMatch = await matches.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+
+    return updatedMatch;
   };
 }
 

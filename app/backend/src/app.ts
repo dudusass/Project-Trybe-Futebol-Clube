@@ -1,8 +1,9 @@
 import * as express from 'express';
+import * as cors from 'cors';
 import userRouter from './router/userRouter';
 import teamRouter from './router/teamRouter';
 import matchRouter from './router/matchRouter';
-import * as cors from 'cors';
+import leaderBoardRouter from './router/leaderBoardRouter';
 
 class App {
   public app: express.Express;
@@ -33,6 +34,8 @@ class App {
     this.app.get('/teams/:id', teamRouter);
 
     this.app.use('/matches', matchRouter);
+
+    this.app.use('/leaderboard', leaderBoardRouter);
   }
 
   // ...

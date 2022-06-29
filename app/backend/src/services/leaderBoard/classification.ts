@@ -1,0 +1,27 @@
+import { IClassification, IParamsLeaderBoard, IMatchGoals } from '../../utils/interface';
+import DataLeaderBoard from './dataLeaderBoard';
+
+const order = (data: IClassification[]) => data.sort((a, b) => {
+  if (a.totalPoints > b.totalPoints) return -1;
+  if (a.totalPoints < b.totalPoints) return 1;
+  if (a.totalVictories > b.totalVictories) return -1;
+  if (a.totalVictories < b.totalVictories) return 1;
+  if (a.goalsBalance > b.goalsBalance) return -1;
+  if (a.goalsBalance < b.goalsBalance) return 1;
+  if (a.goalsFavor > b.goalsFavor) return -1;
+  if (a.goalsFavor < b.goalsFavor) return 1;
+  if (a.goalsOwn > b.goalsOwn) return -1;
+  if (a.goalsOwn < b.goalsOwn) return 1;
+  return 0;
+});
+
+export default function getLeaderBoard({ matches, teams }: IParamsLeaderBoard) {
+  const data = teams.map((team) => {
+    const matchsGoals: IMatchGoals[] = matches
+      .filter((match) => Number(match.homeTeam) === team.id)
+      .map((match) => ({
+        goalsFavor: Number(match.homeTeamGoals), goalsOwn: Number(match.awayTeamGoals) }));
+    return new DataLeaderBoard(team.teamName, matchsGoals);
+  });
+  return order(data);
+}
