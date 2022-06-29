@@ -173,10 +173,3 @@ describe('Testa que não é possível acesso sem senha',() => {
 });
 });
 
-function after(_arg0: () => void) {
-  throw new Error('Function not implemented.');
-}
-function before(_arg0: () => Promise<void>) {
-  throw new Error('Function not implemented.');
-}
-
