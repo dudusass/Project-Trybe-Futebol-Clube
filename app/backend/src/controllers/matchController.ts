@@ -29,7 +29,7 @@ class MatchController {
 
     await this.matchService.finished(id);
 
-    return res.status(200).json({ message: 'finished' });
+    return res.status(200).json({ message: 'Finished' });
   };
 
   updateMatch = async (req: Request, res: Response) => {

@@ -61,7 +61,7 @@ class DataLeaderBoard {
   static getTotalDraws(matchsGoals: IMatchGoals[]) {
     let draws = 0;
     matchsGoals.forEach((match) => {
-      if (match.goalsFavor === match.goalsOwn) {
+      if (match.goalsFavor < match.goalsOwn) {
         draws += 1;
       }
     });
