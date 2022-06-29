@@ -22,9 +22,7 @@ class MatchServices {
   };
 
   finished = async (id: string) => {
-    const finishedMatch = await matches.update({ inProgress: false }, { where: { id } });
-    console.log(finishedMatch);
-    return finishedMatch;
+    await matches.update({ inProgress: false }, { where: { id } });
   };
 
   update = async (id: string, homeTeamGoals: number, awayTeamGoals: number) => {

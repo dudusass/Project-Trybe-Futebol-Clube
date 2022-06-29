@@ -37,8 +37,7 @@ matchRouter.patch(
   async (req: Request, res: Response) => {
     await matchController.updateMatch(req, res);
   },
-  
-);
 
+);
 
 export default matchRouter;

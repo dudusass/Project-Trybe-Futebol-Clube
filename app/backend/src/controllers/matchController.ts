@@ -21,24 +21,23 @@ class MatchController {
 
     const newMatch = await this.matchService.create(data);
 
-    console.log(newMatch);
-
     return res.status(201).json(newMatch);
   }
 
-  async finishMatch(req: Request, res: Response) {
+  finishMatch = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     await this.matchService.finished(id);
 
-    return res.status(200).json({ message: 'Finished' });
-  }
+    return res.status(200).json({ message: 'finished' });
+  };
 
   updateMatch = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { homeTeamGoals, awayTeamGoals } = req.body;
 
     const updated = await this.matchService.update(id, homeTeamGoals, awayTeamGoals);
+    console.log(updated);
     return res.status(200).json(updated);
   };
 }

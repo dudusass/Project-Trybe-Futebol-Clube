@@ -19,7 +19,6 @@ class LeaderboardService {
 
     return classificationHome;
   };
-
 }
 
 export default LeaderboardService;
