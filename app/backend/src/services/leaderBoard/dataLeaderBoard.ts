@@ -25,7 +25,7 @@ class DataLeaderBoard {
     this.efficiency = DataLeaderBoard.getEfficiency(this.totalPoints, this.totalGames);
   }
 
-  static getTotalPoints(matchsGoals: IMatchGoals[]): number {
+  static getTotalPoints(matchsGoals: IMatchGoals[]) {
     let points = 0;
     matchsGoals.forEach((match) => {
       if (match.goalsFavor > match.goalsOwn) {
@@ -38,7 +38,7 @@ class DataLeaderBoard {
     return points;
   }
 
-  static getTotalVictories(matchsGoals: IMatchGoals[]): number {
+  static getTotalVictories(matchsGoals: IMatchGoals[]) {
     let victories = 0;
     matchsGoals.forEach((match) => {
       if (match.goalsFavor > match.goalsOwn) {
@@ -48,7 +48,7 @@ class DataLeaderBoard {
     return victories;
   }
 
-  static getTotalLosses(matchsGoals: IMatchGoals[]): number {
+  static getTotalLosses(matchsGoals: IMatchGoals[]) {
     let losses = 0;
     matchsGoals.forEach((match) => {
       if (match.goalsFavor < match.goalsOwn) {
@@ -61,7 +61,7 @@ class DataLeaderBoard {
   static getTotalDraws(matchsGoals: IMatchGoals[]) {
     let draws = 0;
     matchsGoals.forEach((match) => {
-      if (match.goalsFavor < match.goalsOwn) {
+      if (match.goalsFavor === match.goalsOwn) {
         draws += 1;
       }
     });
