@@ -88,6 +88,7 @@ class DataLeaderBoard {
     const calc = Number(((totalPoints * 100) / (totalGames * 3)).toFixed(2)) || 0;
     return calc;
   }
+
 }
 
 export default DataLeaderBoard;
